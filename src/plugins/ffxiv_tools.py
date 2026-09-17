@@ -20,7 +20,9 @@ from nonebot.matcher import Matcher
 from nonebot.params import CommandArg
 
 from message_ui import DIVIDER, cooldown_panel, error_panel, help_panel, panel
-from bot_tools.catalog import ff14_directory
+from qbot_ff14.catalog import ff14_directory
+from qbot_ff14.integration import register as register_group_settings
+from qbot_ff14.commands import utilities  # registers /fsx, /ofish and /hunt
 from bot_tools.request_cache import ResponseCache, singleflight
 
 
@@ -829,6 +831,7 @@ async def _finish_error(matcher: type[Matcher], error: FFXIVToolsError) -> None:
     await matcher.finish(error_panel(_clean_text(error, 500)))
 
 
+register_group_settings()
 ff14 = on_command("ff14", force_whitespace=True, priority=10, block=True)
 gather = on_command("gather", force_whitespace=True, priority=10, block=True)
 sales = on_command("sales", force_whitespace=True, priority=10, block=True)
